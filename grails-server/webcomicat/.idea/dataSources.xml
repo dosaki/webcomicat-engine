@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3398228562">
+    <data-source source="LOCAL" name="webcomicat dev" uuid="079d0603-b24b-4343-ab61-dfa90cbb2a22">
+      <driver-ref>mysql</driver-ref>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost/yourDB</jdbc-url>
+      <user-name>yourUser</user-name>
+      <user-password>dfd3dfc5dfdfdfd8dffadfcbdfd9dfd9dfdddfc5dfd8dfce</user-password>
+      <libraries>
+        <library>
+          <url>file://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.27/mysql-connector-java-5.1.27.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>
+
