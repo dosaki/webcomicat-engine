@@ -1,0 +1,47 @@
+@import "bootstrap/bootstrap.less";
+
+@offset: 20px;
+
+.side-container {
+    display:inline-block;
+
+    @media (min-width: @screen-sm-min) {
+        width: (@container-sm/6) - @offset;
+    }
+    @media (min-width: @screen-md-min) {
+        width: (@container-md/6) - @offset;
+    }
+    @media (min-width: @screen-lg-min) {
+        width: (@container-lg/6) - @offset;
+    }
+}
+
+.main-container {
+    display:inline-block;
+
+    @media (min-width: @screen-sm-min) {
+        width: (5 * @container-sm/6) - @offset;
+    }
+    @media (min-width: @screen-md-min) {
+        width: (5 * @container-md/6) - @offset;
+    }
+    @media (min-width: @screen-lg-min) {
+        width: (5 * @container-lg/6) - @offset;
+    }
+}
+
+.content {
+    padding:10px;
+}
+
+.form-label{
+    width:25%;
+}
+.form-item{
+    width:100%; //The rest...
+}
+.input-group{
+    width:100%;
+    margin-top:5px;
+    margin-bottom:5px;
+}
