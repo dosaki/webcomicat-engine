@@ -41,6 +41,7 @@ grails.views.default.codec = "html"
 // If unspecified, controllers are prototype scoped.
 grails.controllers.defaultScope = 'singleton'
 
+
 // GSP settings
 grails {
     views {
@@ -84,6 +85,26 @@ grails.hibernate.cache.queries = false
 grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
+
+
+grails.assets.less.compiler = 'standard'
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'net.dosaki.webcomicat.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'net.dosaki.webcomicat.UserRole'
+grails.plugin.springsecurity.authority.className = 'net.dosaki.webcomicat.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+    '/':                              ['permitAll'],
+    '/index':                         ['permitAll'],
+    '/index.gsp':                     ['permitAll'],
+    '/assets/**':                     ['permitAll'],
+    '/**/js/**':                      ['permitAll'],
+    '/**/css/**':                     ['permitAll'],
+    '/**/images/**':                  ['permitAll'],
+    '/**/favicon.ico':                ['permitAll'],
+    '/front/**':                      ['permitAll']
+]
+
 
 environments {
     development {

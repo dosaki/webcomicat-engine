@@ -3,12 +3,14 @@ package net.dosaki.webcomicat
 import java.sql.Date as SQLDate
 
 class ComicPage {
-    String author
+    User author
     String title
+    Integer sequence
     SQLDate releaseDate = new SQLDate(new java.util.Date().getTime())
-    String chapter
     String description
     String image
+
+    static belongsTo = [chapter: Chapter]
 
     static constraints = {
         author nullable:false
