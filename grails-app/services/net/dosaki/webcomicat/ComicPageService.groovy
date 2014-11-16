@@ -3,7 +3,11 @@ package net.dosaki.webcomicat
 import org.hibernate.criterion.CriteriaSpecification
 
 class ComicPageService{
-    def getAllComicPages() {
+    def getAllComicPages(){
+        return ComicPage.getAll()
+    }
+
+    def getAllReleasedComicPages() {
         def c = ComicPage.createCriteria()
         def comicPageList = c.list {
             resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP);

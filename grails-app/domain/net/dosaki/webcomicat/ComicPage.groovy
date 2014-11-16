@@ -8,16 +8,19 @@ class ComicPage {
     Integer sequence
     SQLDate releaseDate = new SQLDate(new java.util.Date().getTime())
     String description
-    String image
+    byte[] image
+    String imageType
 
     static belongsTo = [chapter: Chapter]
 
     static constraints = {
         author nullable:false
-        title nullable: true
+        title nullable: false
         releaseDate nullable: false
-        chapter nullable: true
+        chapter nullable: false
         description nullable: true
-        image nullable: false
+        sequence nullable: false
+        image nullable: false, maxSize:1073741824
+        imageType nullable: false
     }
 }

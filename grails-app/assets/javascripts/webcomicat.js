@@ -16,7 +16,7 @@ webcomicat.config(function ( $httpProvider) {
 webcomicat.service('comicPageService', ['$rootScope', '$http',
     function($rootScope, $http){
         return {
-            comicList: function(){
+            listComicPages: function(){
                 $http.get(serverUrl+'webcomicat/manageComic/getAllComicPages')
                     .success(function(data, status, headers, config){
                         $rootScope.$broadcast('gotComicList', data);
@@ -24,7 +24,43 @@ webcomicat.service('comicPageService', ['$rootScope', '$http',
                     .error(function(data, status, headers, config){
                         console.log(status)
                     });
-            },/*
+            },
+            listChapters: function(){
+                $http.get(serverUrl+'webcomicat/manageComic/getAllChapters')
+                    .success(function(data, status, headers, config){
+                        $rootScope.$broadcast('gotChapters', data);
+                    })
+                    .error(function(data, status, headers, config){
+                        console.log(status)
+                    });
+            },
+            createNewChapter: function(chapter){
+                $http.post(serverUrl+'webcomicat/manageComic/newChapter', chapter)
+                    .success(function(data, status, headers, config){
+                        $rootScope.$broadcast('gotNewChapter', data);
+                    })
+                    .error(function(data, status, headers, config){
+                        $rootScope.$broadcast('error', data);
+                    });
+            },
+            createNewComicPage: function(comicPage){
+                var fd = new FormData();
+                //Take the first selected file
+                fd.append("file", comicPage.image);
+                fd.append("data", angular.toJson(comicPage));
+
+                $http.post(serverUrl+'webcomicat/manageComic/newComicPage', fd, {
+                    headers: {'Content-Type': undefined },
+                    transformRequest: angular.identity
+                })
+                .success(function(data, status, headers, config){
+                    $rootScope.$broadcast('gotNewPage', data);
+                })
+                .error(function(data, status, headers, config){
+                    $rootScope.$broadcast('error', data);
+                });
+            },
+            /*
             getAllComics: function(){
                 $http.get('http://localhost:8080/webcomicat/comicPage/getAllComicPages')
                     .success(function(data, status, headers, config){
@@ -40,15 +76,71 @@ webcomicat.service('comicPageService', ['$rootScope', '$http',
 
 webcomicat.controller("AdminController", ['$scope', 'comicPageService',
     function($scope, comicPageService){
-        comicPageService.comicList();
+        comicPageService.listComicPages();
+        comicPageService.listChapters();
+
+        $scope.newChapter = {
+            title:"",
+            sequence:""
+        }
+        $scope.newComicPage = {
+            title:null,
+            image:null,
+            description:null,
+            chapter:null
+        }
+        $scope.feedbackMsg = {
+            text:"",
+            type:"invisible"
+        }
 
         /* Functions */
         $scope.listComics = function(){
-            comicPageService.comicList();
+            comicPageService.listComicPages();
+        }
+        $scope.listChapters = function(){
+            comicPageService.listChapters();
+        }
+        $scope.createNewChapter = function(chapt){
+            comicPageService.createNewChapter(chapt);
+        }
+        $scope.createNewComicPage = function(){
+            comicPageService.createNewComicPage($scope.newComicPage);
+        }
+        $scope.updateNewComicChapt = function(chapt){
+            $scope.newComicPage.chapter = chapt
+        }
+        $scope.updateNewComicImg = function(files){
+            $scope.newComicPage.image = files[0]
         }
         /* Listeners */
         $scope.$on('gotComicList', function(event, comicList){
             $scope.comics = comicList;
+        })
+        $scope.$on('gotChapters', function(event, chapters){
+            $scope.chapters = chapters;
+        })
+        $scope.$on('gotNewPage', function(event, comic){
+            $scope.comics.push(comic);
+            $scope.newComicPage = {
+                title:null,
+                image:null,
+                description:null,
+                chapter:null
+            }
+            $scope.feedbackMsg.text = "Comic Page created";
+            $scope.feedbackMsg.type = "alert alert-success alert-dismissible";
+        })
+        $scope.$on('gotNewChapter', function(event, chapter){
+            $scope.chapters.push(chapter);
+            $scope.newChapter.title = ""
+            $scope.newChapter.sequence = ""
+            $scope.feedbackMsg.text = "Chapter created";
+            $scope.feedbackMsg.type = "alert alert-success alert-dismissible";
+        })
+        $scope.$on('error', function(event,data){
+            $scope.feedbackMsg.text = data;
+            $scope.feedbackMsg.type = "alert alert-danger alert-dismissible";
         })
     }]
 );

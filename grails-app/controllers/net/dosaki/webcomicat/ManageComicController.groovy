@@ -1,6 +1,8 @@
 package net.dosaki.webcomicat
 
 import grails.converters.JSON
+import grails.converters.deep.JSON as deepJSON
+import groovy.json.JsonSlurper
 
 import grails.plugin.springsecurity.annotation.Secured
 
@@ -9,6 +11,7 @@ import grails.plugin.springsecurity.annotation.Secured
 class ManageComicController {
     def wcSecurityService
     def comicPageService
+    def chapterService
 
     def index() {
         render view:"index"
@@ -17,40 +20,55 @@ class ManageComicController {
     def newChapter() {
         def chapter = new Chapter();
 
-        chapter.sequence = params.chaptSequence.toInteger();
-        chapter.title = params.title
+        chapter.sequence = request.JSON.sequence.toInteger();
+        chapter.title = request.JSON.title
 
-        if(!chapter.hasErrors())
+        if(chapter.validate()){
+            chapter.save()
             render chapter as JSON
-        else
-            render chapter.errors
+        }
+        else{
+            response.sendError(500, chapter.errors as JSON);
+        }
     }
     def newComicPage() {
-        def file = request.getFile('comicImage')
-        def title = params.title;
-        def chapter = Chapter.findBySequence(params.chapter);
+        def file = request.getFile('file')
+        def comic = new JsonSlurper().parseText(params.data)
         def sequence = ComicPage.getAll().size()
+        def chapter = Chapter.findBySequence(comic.chapter.sequence)
 
-        println params
-        //file.transferTo(new File('/var/webcomicat/comics/'+chapter.sequence+'/'+sequence+title))
-/*
-        def newComicPage=new ComicPage()
-        newComicPage.title = title;
-        newComicPage.chapter = chapter;
+        def newComicPage = new ComicPage()
+        newComicPage.title = comic.title ?: "Page" + sequence
+        newComicPage.chapter = chapter
+        newComicPage.sequence = sequence
         newComicPage.author = wcSecurityService.getCurrentUser()
-        newComicPage.save()
+        newComicPage.description = comic.description ?: null
+        newComicPage.image = file.bytes
+        newComicPage.imageType = file.getContentType()
 
-        if(!newComicPage.hasErrors())
+        if(newComicPage.validate()){
+            newComicPage.save()
             render newComicPage as JSON
-        else
-            render newComicPage.errors*/
+        }
+        else{
+            response.sendError(500, newComicPage.errors as JSON);
+        }
+    }
+
+    def image(){
+        def comic = ComicPage.findBySequenceAndChapter(params.sequence.toInteger(), Chapter.findBySequence(params.chapter.toInteger()))
+        response.contentType = comic.imageType
+        response.contentLength = comic.image.size()
+        OutputStream out = response.outputStream
+        out.write(comic.image.byte)
+        out.close()
     }
 
     def getAllComicPages() {
-        render comicPageService.getAllComicPages() as JSON
+        render comicPageService.getAllComicPages() as deepJSON
     }
 
-    def getChapters() {
-        render comicPageService.getAllComicPages() as JSON
+    def getAllChapters() {
+        render chapterService.getAllChapters() as JSON
     }
 }

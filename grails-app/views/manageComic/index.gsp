@@ -15,6 +15,14 @@
                 </ul>
             </div>
             <div class="main-container">
+                <div id="errorMessages" class="{{feedbackMsg.type}}">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    {{feedbackMsg.text}}
+                </div>
+
                 <div id="comicList" class="content">
                     <table class="table">
                         <thead>
@@ -27,7 +35,7 @@
                             <tr ng-repeat="comic in comics">
                                 <td>{{comic.author.username}}</td>
                                 <td>{{comic.title}}</td>
-                                <td>{{comic.chapter}}</td>
+                                <td>{{comic.chapter.sequence}}: {{comic.chapter.title}}</td>
                                 <td>{{comic.releaseDate}}</td>
                             </tr>
                         </tbody>
@@ -56,40 +64,59 @@
                                         New Comic Page
                                     </h4>
                                 </div>
-                                <g:uploadForm action="newComicPage">
+                                <form ng-submit="createNewComicPage()">
                                     <div class="modal-body">
                                             <div class="input-group">
                                                 <span class="input-group-addon form-label">Title</span>
-                                                <input type="text" name="title" class="form-control form-item" placeholder="Title for this particular page">
+                                                <input type="text" name="title" ng-model="newComicPage.title" class="form-control form-item" placeholder="Title for this particular page">
                                             </div>
                                             <div class="input-group">
                                                 <span class="input-group-addon form-label">Chapter</span>
                                                 <div class="dropdown form-item">
-                                                    <button class="btn btn-primary dropdown-toggle form-item" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                                        -- select --
+                                                    <button class="btn btn-default dropdown-toggle form-item" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                                        <span ng-if="newComicPage.chapter == null">
+                                                            Select Chapter
+                                                        </span>
+                                                        <span ng-if="newComicPage.chapter != null">
+                                                            {{newComicPage.chapter.sequence}}: {{newComicPage.chapter.title}}
+                                                        </span>
                                                         <span class="caret"></span>
                                                     </button>
                                                     <ul class="dropdown-menu form-item" role="menu" aria-labelledby="dropdownMenu1">
-                                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                                                        <li ng-repeat="chapter in chapters | orderBy:'sequence':true">
+                                                            <a role="menuitem" tabindex="-1" href="#" ng-click="updateNewComicChapt(chapter)">{{chapter.sequence}}: {{chapter.title}}</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                             <div class="input-group">
                                                 <span class="input-group-addon form-label">Description</span>
-                                                <input type="text" name="description" class="form-control form-item"
+                                                <input type="text" name="description" ng-model="newComicPage.description" class="form-control form-item"
                                                     placeholder="Anything you'd like to comment or say along with this page"/>
                                             </div>
-                                            <div class="input-group">
-                                                  <input type="file" name="comicImage"/>
+                                            <div class="input-group text-center">
+                                                <input type="file" onchange="updatePreview(this.files);angular.element(this).scope().updateNewComicImg(this.files);" name="comicImage"/>
+                                                <img id="comicPreview" class="image-thumbnail">
+                                                <script>
+                                                    function updatePreview(files){
+                                                        if (files && files[0]) {
+                                                            var reader = new FileReader();
+                                                            reader.onload = function (e) {
+                                                                $('#comicPreview').attr('src', e.target.result);
+                                                            }
+                                                            reader.readAsDataURL(files[0]);
+                                                        }
+                                                    }
+                                                </script>
                                             </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">
                                             Close
                                         </button>
-                                        <input type="submit" value="Upload New Comic" class="btn btn-primary"/>
+                                        <input type="submit" value="Upload New Comic" onclick="$('#newPageModal').modal('hide')" class="btn btn-primary"/>
                                     </div>
-                                </g:uploadForm>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -108,24 +135,26 @@
                                         New Chapter
                                     </h4>
                                 </div>
-                                <g:uploadForm action="newChapter">
+                                <form>
                                     <div class="modal-body">
                                             <div class="input-group">
                                                 <span class="input-group-addon form-label">Title</span>
-                                                <input type="text" name="title" class="form-control form-item" placeholder="Title for this chapter">
+                                                <input type="text" name="title" class="form-control form-item" ng-model="newChapter.title" placeholder="Title for this chapter">
                                             </div>
                                             <div class="input-group">
                                                 <span class="input-group-addon form-label">Sequence</span>
-                                                <input type="text" name="chaptSequence" class="form-control form-item" placeholder="For ordering chapters">
+                                                <input type="text" name="chaptSequence" class="form-control form-item" ng-model="newChapter.sequence" placeholder="For ordering chapters">
                                             </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">
                                             Close
                                         </button>
-                                        <input type="submit" value="Create Chapter" class="btn btn-primary"/>
+                                        <button type="button" class="btn btn-primary" ng-click="createNewChapter(newChapter)" data-dismiss="modal">
+                                            Create Chapter
+                                        </button>
                                     </div>
-                                </g:uploadForm>
+                                </form>
                             </div>
                         </div>
                     </div>
