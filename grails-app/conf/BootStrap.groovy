@@ -1,4 +1,5 @@
 import net.dosaki.webcomicat.*
+import net.dosaki.webcomicat.marshallers.*
 
 class BootStrap {
     def init = { servletContext ->
@@ -6,13 +7,22 @@ class BootStrap {
         def userRole = Role.findByAuthority('ROLE_USER') ?: new Role(authority: 'ROLE_USER').save(flush: true)
 
         if(!User.findByUsername('admin')){
-            println "creating..."
+            println "Creating admin..."
             def adminUser = new User(username: 'admin', password: 'password')
             adminUser.save(flush: true)
 
             UserRole.create adminUser, adminRole, true
         }
 
+        /**
+         * Register JSON marshallers
+         */
+        def comicPageMarshaller = new ComicPageMarshaller()
+        comicPageMarshaller.register()
+        def userMarshaller = new UserMarshaller()
+        userMarshaller.register()
+        def chapterMarshaller = new ChapterMarshaller()
+        chapterMarshaller.register()
     }
 
     def destroy = {

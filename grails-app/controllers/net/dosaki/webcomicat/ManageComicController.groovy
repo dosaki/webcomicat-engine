@@ -1,7 +1,6 @@
 package net.dosaki.webcomicat
 
 import grails.converters.JSON
-import grails.converters.deep.JSON as deepJSON
 import groovy.json.JsonSlurper
 
 import grails.plugin.springsecurity.annotation.Secured
@@ -55,17 +54,36 @@ class ManageComicController {
         }
     }
 
+    def deleteComicPage(){
+        def comicPage = ComicPage.get(request.JSON.id)
+        println comicPage;
+
+        println "about to delete..."
+        comicPage.delete(flush:true)
+
+        if(!ComicPage.get(request.JSON.id)){
+            render request.JSON.id
+        }
+        else{
+            response.sendError(500, "Couldn't delete comic!");
+        }
+
+    }
+
     def image(){
-        def comic = ComicPage.findBySequenceAndChapter(params.sequence.toInteger(), Chapter.findBySequence(params.chapter.toInteger()))
+        def comic = ComicPage.findBySequenceAndChapter(
+            params.sequence.toInteger(),
+            Chapter.findBySequence(params.chapter.toInteger())
+        )
         response.contentType = comic.imageType
         response.contentLength = comic.image.size()
         OutputStream out = response.outputStream
-        out.write(comic.image.byte)
+        out.write(comic.image)
         out.close()
     }
 
     def getAllComicPages() {
-        render comicPageService.getAllComicPages() as deepJSON
+        render comicPageService.getAllComicPages() as JSON //deepJSON
     }
 
     def getAllChapters() {

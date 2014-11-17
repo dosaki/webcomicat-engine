@@ -11,7 +11,6 @@
             <div class="side-container">
                 <ul class="nav nav-pills nav-stacked" role="tablist">
                     <li role="presentation" class="active"><a ng-click="listComics()">Comic Pages</a></li>
-                    <li role="presentation"> <a ng-click="listUsers()">Users</a></li>
                 </ul>
             </div>
             <div class="main-container">
@@ -26,17 +25,21 @@
                 <div id="comicList" class="content">
                     <table class="table">
                         <thead>
+                            <th>Thumbnail</th>
                             <th>Author</th>
                             <th>Title</th>
                             <th>Chapter</th>
                             <th>Release Date</th>
+                            <th></th>
                         </thead>
                         <tbody>
                             <tr ng-repeat="comic in comics">
-                                <td>{{comic.author.username}}</td>
+                                <td><img class="small-image-thumbnail" ng-src="manageComic/image?sequence={{comic.sequence}}&chapter={{comic.chapter.sequence}}"></td>
+                                <td>{{comic.author}}</td>
                                 <td>{{comic.title}}</td>
                                 <td>{{comic.chapter.sequence}}: {{comic.chapter.title}}</td>
                                 <td>{{comic.releaseDate}}</td>
+                                <td><button class="btn btn-danger" ng-click="deleteComicPage(comic.id)">&times;</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -95,7 +98,7 @@
                                                     placeholder="Anything you'd like to comment or say along with this page"/>
                                             </div>
                                             <div class="input-group text-center">
-                                                <input type="file" onchange="updatePreview(this.files);angular.element(this).scope().updateNewComicImg(this.files);" name="comicImage"/>
+                                                <input id="imageInput" type="file" onchange="updatePreview(this.files);angular.element(this).scope().updateNewComicImg(this.files);" name="comicImage"/>
                                                 <img id="comicPreview" class="image-thumbnail">
                                                 <script>
                                                     function updatePreview(files){
