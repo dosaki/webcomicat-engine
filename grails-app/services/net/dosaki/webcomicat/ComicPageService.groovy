@@ -1,6 +1,7 @@
 package net.dosaki.webcomicat
 
 import org.hibernate.criterion.CriteriaSpecification
+import java.sql.Date as SQLDate
 
 class ComicPageService{
     def getAllComicPages(){
@@ -8,15 +9,11 @@ class ComicPageService{
     }
 
     def getAllReleasedComicPages() {
-        def c = ComicPage.createCriteria()
-        def comicPageList = c.list {
-            resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP);
-
-            lt("releaseDate", (new java.sql.Date((new java.util.Date() + 1).getTime())) )
-
-            order("releaseDate", "desc")
+        def now = new SQLDate(new java.util.Date().getTime())
+        def query = ComicPage.where{
+            releaseDate <= now
         }
 
-        return comicPageList
+        return query.list(sort:"releaseDate", order:"asc")
     }
 }

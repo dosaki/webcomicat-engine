@@ -7,8 +7,8 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/index")
-        //"/"(controller:'comic', action:"index")
+        //"/"(view:"/index")
+        "/"(controller:'comicPage', action:"index")
         "500"(view:'/error')
 	}
 }
