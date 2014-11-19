@@ -9,7 +9,13 @@
     <body>
         <div ng-app="webcomicat" ng-controller="ComicController">
             <div class="main-container">
-                <div><button ng-click="page = page-1"><</button> {{page}} <button ng-click="page = page + 1">></button></div>
+                <div>
+                    <button ng-click="page = 1">&#10096;&#10096;</button>
+                    <button ng-click="page = page-1">&#10096;</button>
+                    {{page}}
+                    <button ng-click="page = page + 1">&#10097;</button>
+                    <button ng-click="page = comics.size">&#10097;&#10097;</button>
+                </div>
                 <div ng-repeat="comic in comics | filter:{sequence: page}">
                     <div class="img-containter text-center">
                         <img ng-src="/comicPage/image?sequence={{comic.sequence}}&chapter={{comic.chapter.sequence}}">
