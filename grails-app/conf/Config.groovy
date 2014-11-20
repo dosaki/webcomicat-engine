@@ -123,7 +123,9 @@ log4j.main = {
            'net.sf.ehcache.hibernate'
 }
 
-webcomicat.config = {
-    title="Webcomicat",
-    tagline="Host and manage your webcomic!"
+webcomicat {
+    config{
+        title="Webcomicat",
+        tagline="Host and manage your webcomic!"
+    }
 }
