@@ -5,7 +5,8 @@
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
 	<head>
-		<title>${applicationContext.webcomicat.config.title}</title>
+		<% System.out.println(applicationContext) %>
+		<title>${/*applicationContext.config.webcomicat.config.title*/}</title>
 		<g:layoutHead/>
 	</head>
 	<body>

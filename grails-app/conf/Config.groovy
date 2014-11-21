@@ -124,8 +124,8 @@ log4j.main = {
 }
 
 webcomicat {
-    config{
-        title="Webcomicat",
+    config {
+        title="Webcomicat"
         tagline="Host and manage your webcomic!"
     }
 }
