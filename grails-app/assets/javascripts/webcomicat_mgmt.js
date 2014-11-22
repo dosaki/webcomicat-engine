@@ -84,6 +84,9 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService', 'chapter
         comicPageService.listComicPages();
         chapterService.listChapters();
 
+        $scope.listOrderBy='releaseDate'
+        $scope.listOrder=false
+
         $scope.newChapter = {
             title:"",
             sequence:""

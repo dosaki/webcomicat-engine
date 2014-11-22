@@ -36,7 +36,8 @@ webcomicat.controller("ComicController", ['$scope', 'comicPageService',
         $scope.page = 0;
 
         $scope.$on('gotComicList', function(event, comicPages){
-            $scope.comics = comicPages
+            $scope.page = comicPages.length - 1;
+            $scope.comics = comicPages;
         })
     }]
 );

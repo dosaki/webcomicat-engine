@@ -12,7 +12,7 @@
 		<div class="container">
 			<div class="header">
 				<div class="page-header">
-					<h1>Webcomicat</h1>
+					<h1>${grailsApplication.config.webcomicat.config.title}</h1>
 				</div>
 			</div>
 

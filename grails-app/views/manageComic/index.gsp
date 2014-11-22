@@ -26,14 +26,14 @@
                     <table class="table">
                         <thead>
                             <th>Thumbnail</th>
-                            <th>Author</th>
-                            <th>Title</th>
-                            <th>Chapter</th>
-                            <th>Release Date</th>
+                            <th><a href="javascript:void(0)" ng-click="listOrderBy='author'; listOrder=!listOrder">Author</a></th>
+                            <th><a href="javascript:void(0)" ng-click="listOrderBy='title'; listOrder=!listOrder">Title</a></th>
+                            <th><a href="javascript:void(0)" ng-click="listOrderBy='chapter'; listOrder=!listOrder">Chapter</a></th>
+                            <th><a href="javascript:void(0)" ng-click="listOrderBy='releaseDate'; listOrder=!listOrder">Release Date</a></th>
                             <th></th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="comic in comics">
+                            <tr ng-repeat="comic in comics | orderBy : listOrderBy : listOrder">
                                 <td><img class="small-image-thumbnail" ng-src="manageComic/image?sequence={{comic.sequence}}&chapter={{comic.chapter.sequence}}"></td>
                                 <td>{{comic.author}}</td>
                                 <td>{{comic.title}}</td>
