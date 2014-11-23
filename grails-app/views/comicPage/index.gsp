@@ -11,9 +11,9 @@
             <nav class="text-center">
                 <ul class="pagination">
                     <li><a href="#" ng-click="page = 0">&#10096;&#10096;</a></li>
-                    <li><a href="#" ng-click="page = Math.max(0,(page-1))">&#10096;</a></li>
+                    <li><a href="#" ng-click="page = incrementPage()">&#10096;</a></li>
                     <li><a href="#">{{page}}</a></li>
-                    <li><a href="#" ng-click="page = Math.min((page+1), (comics.length-1))">&#10097;</a></li>
+                    <li><a href="#" ng-click="page = decrementPage()">&#10097;</a></li>
                     <li><a href="#" ng-click="page = comics.length - 1">&#10097;&#10097;</a></li>
                 </ul>
             </nav>

@@ -34,6 +34,12 @@ webcomicat.controller("ComicController", ['$scope', 'comicPageService',
         comicPageService.listComicPages();
 
         $scope.page = 0;
+        $scope.incrementPage = function(){
+            return Math.max(0, ($scope.page - 1))
+        }
+        $scope.decrementPage = function(){
+            return Math.min($scope.comics.length - 1, ($scope.page + 1))
+        }
 
         $scope.$on('gotComicList', function(event, comicPages){
             $scope.page = comicPages.length - 1;
