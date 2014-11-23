@@ -1,6 +1,17 @@
 @import "bootstrap/bootstrap.less";
 
 @offset: 20px;
+@footer-height:100px;
+@default-radius:6px;
+
+html, body {height: 100%;}
+
+.footer {
+    position: relative;
+	height: @footer-height;
+	clear:both;
+}
+
 
 .side-container {
     display:inline-block;
@@ -53,15 +64,24 @@
 }
 
 .image-thumbnail{
+    border-radius:@default-radius/2;
     max-width:250px;
 }
 
 .small-image-thumbnail{
+    border-radius: @default-radius/2;
     max-width:50px;
 }
 
 .img-containter{
     width:600px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.profile-pic{
+    border-radius: @default-radius;
+    max-width:320px;
     margin-left:auto;
     margin-right:auto;
 }

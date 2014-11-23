@@ -11,7 +11,10 @@ class ComicPageController {
     def comicPageService
 
     def index(){
-        render view:"index"
+        render view:"index",
+                model:[
+                    "current": "home"
+                ]
     }
 
     def image(){

@@ -7,11 +7,15 @@ import grails.plugin.springsecurity.annotation.Secured
 
 @Secured(['permitAll'])
 class GeneralController {
-
     def index(){
         redirect action:"about"
     }
     def about(){
-        render view:"about"
+        def settings = Settings.get(1)
+        render view:"about",
+                model:[
+                    "settings": settings,
+                    "current": "about"
+                ]
     }
 }

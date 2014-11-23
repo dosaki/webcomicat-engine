@@ -8,8 +8,22 @@
 
     <body>
         <div class="row">
-            <div class="col-md-8">.col-md-8</div>
-            <div class="col-md-4">.col-md-4</div>
+            <div class="col-md-8">
+                <div class="well">
+                    <h2>About "${settings.comicTitle}"</h2>
+                    <div>${settings.aboutComic}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <div class="text-center">
+                        <img class="profile-pic" src="/assets/profile_pic.png"/>
+                    </div>
+                    <div>
+                        <p>${settings.aboutAuthor}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
