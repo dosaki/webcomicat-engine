@@ -15,6 +15,12 @@ class BootStrap {
         }
 
         /**
+         * Generate settings if they are not there
+         */
+        def settings = Settings.get(1) ?: new Settings();
+        settings.save(flush:true)
+
+        /**
          * Register JSON marshallers
          */
         def comicPageMarshaller = new ComicPageMarshaller()

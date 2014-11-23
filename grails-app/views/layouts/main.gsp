@@ -4,15 +4,20 @@
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
+<%@ page import="net.dosaki.webcomicat.Settings" %>
+
+<%
+	def settings = Settings.get(1)
+%>
 	<head>
-		<title>${grailsApplication.config.webcomicat.config.title}</title>
+		<title>${settings.comicTitle}</title>
 		<g:layoutHead/>
 	</head>
 	<body>
 		<div class="container">
-			<div class="header">
-				<div class="page-header">
-					<div>
+			<div class="wrapper">
+				<div class="header">
+					<div class="page-header">
 						<nav class="navbar navbar-default" role="navigation">
 							<div class="container-fluid">
 							<!-- Brand and toggle get grouped for better mobile display -->
@@ -23,32 +28,37 @@
 										<span class="icon-bar"></span>
 										<span class="icon-bar"></span>
 									</button>
-									<a class="navbar-brand" href="#">${grailsApplication.config.webcomicat.config.title}</a>
+									<a class="navbar-brand" href="#">${settings.comicTitle}</a>
 								</div>
 
 								<!-- Collect the nav links, forms, and other content for toggling -->
 								<div class="collapse navbar-collapse" id="navbar">
 									<ul class="nav navbar-nav">
-										<li class="${current ? 'active' : ''}"><a href="/">
-											Webcomic <g:if test="${current}"><span class="sr-only">(current)</span></g:if>
+										<li class="${current == 'home' ? 'active' : ''}"><a href="/">
+											Webcomic <g:if test="${current == 'home'}"><span class="sr-only">(current)</span></g:if>
 										</a></li>
-										<li class="${current ? 'active' : ''}"><a href="/general/about">
-											About <g:if test="${current}"><span class="sr-only">(current)</span></g:if>
+										<li class="${current == 'about' ? 'active' : ''}"><a href="/general/about">
+											About <g:if test="${current == 'about' }"><span class="sr-only">(current)</span></g:if>
 										</a></li>
+									</ul>
+									<ul class="nav navbar-nav navbar-right">
+        								<li><a>by ${settings.mainAuthor}</a></li>
 									</ul>
 								</div><!-- /.navbar-collapse -->
 							</div><!-- /.container-fluid -->
 						</nav>
 					</div>
 				</div>
-			</div>
 
-			<div class="body">
-				<g:layoutBody/>
+				<div class="body">
+					<g:layoutBody/>
+				</div>
 			</div>
 
 			<div class="footer">
-				<small>Powered by <a href="https://github.com/dosaki/webcomicat-engine">webcomicat</a> by <a href="https://github.com/dosaki">Tiago 'Dosaki' Correia</a></small>
+				<hr/>
+				<p><small>Powered by <a href="https://github.com/dosaki/webcomicat-engine">webcomicat-engine</a>
+				by <a href="https://github.com/dosaki">Tiago 'Dosaki' Correia</a></small><p>
 			</div>
 		</div>
 	</body>
