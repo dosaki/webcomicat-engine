@@ -13,6 +13,32 @@ webcomicat.config(function ( $httpProvider) {
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
+webcomicat.service('generalService', ['$rootScope', '$http',
+    function($rootScope, $http){
+        return {
+            getSettings: function(){
+                $http.get(serverUrl+'manageComic/getSettings')
+                    .success(function(data, status, headers, config){
+                        $rootScope.$broadcast('gotSettings', data);
+                    })
+                    .error(function(data, status, headers, config){
+                        console.log(status)
+                    });
+            },
+            saveSettings: function(settings){
+                console.log(settings)
+                $http.post(serverUrl+'manageComic/saveSettings', settings)
+                    .success(function(data, status, headers, config){
+                        console.log(data + ", " + status)
+                    })
+                    .error(function(data, status, headers, config){
+                        console.log(data + ", " + status)
+                    });
+            },
+        }
+    }
+]);
+
 webcomicat.service('comicPageService', ['$rootScope', '$http',
     function($rootScope, $http){
         return {
@@ -54,6 +80,7 @@ webcomicat.service('comicPageService', ['$rootScope', '$http',
         }
     }
 ]);
+
 webcomicat.service('chapterService', ['$rootScope', '$http',
     function($rootScope, $http){
         return {
@@ -79,10 +106,11 @@ webcomicat.service('chapterService', ['$rootScope', '$http',
     }
 ]);
 
-webcomicat.controller("AdminController", ['$scope', 'comicPageService', 'chapterService',
-    function($scope, comicPageService, chapterService){
+webcomicat.controller("AdminController", ['$scope', 'comicPageService', 'chapterService', 'generalService',
+    function($scope, comicPageService, chapterService, generalService){
         comicPageService.listComicPages();
         chapterService.listChapters();
+        generalService.getSettings();
 
         $scope.listOrderBy='releaseDate'
         $scope.listOrder=false
@@ -103,6 +131,9 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService', 'chapter
         }
 
         /* Functions */
+        $scope.saveSettings = function(){
+            generalService.saveSettings($scope.settings);
+        }
         $scope.listChapters = function(){
             chapterService.listChapters();
         }
@@ -131,6 +162,10 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService', 'chapter
         })
         $scope.$on('gotChapters', function(event, chapters){
             $scope.chapters = chapters;
+        })
+        $scope.$on('gotSettings', function(event, settings){
+            $scope.settings = settings;
+            console.log(settings.comicTitle.length)
         })
         $scope.$on('gotNewPage', function(event, comic){
             $scope.comics.push(comic);

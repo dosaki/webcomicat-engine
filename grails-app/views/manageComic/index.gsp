@@ -10,7 +10,8 @@
         <div ng-app="webcomicat" ng-controller="AdminController">
             <div class="side-container">
                 <ul class="nav nav-pills nav-stacked" role="tablist">
-                    <li role="presentation" class="active"><a ng-click="listComics()">Comic Pages</a></li>
+                    <li role="presentation" class="active"><a href="#">Comic Pages</a></li>
+                    <li role="presentation"><a href="/manageComic/settings">Settings</a></li>
                 </ul>
             </div>
             <div class="main-container">

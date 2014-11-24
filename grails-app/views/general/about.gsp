@@ -11,7 +11,9 @@
             <div class="col-md-8">
                 <div class="well">
                     <h2>About "${settings.comicTitle}"</h2>
-                    <div>${settings.aboutComic}</div>
+                    <div>
+                        ${settings.aboutComic}
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
@@ -19,7 +21,9 @@
                     <div class="text-center">
                         <img class="profile-pic" src="/assets/profile_pic.png"/>
                     </div>
+                    <hr/>
                     <div>
+                        <h3>About ${settings.mainAuthor}</h3>
                         <p>${settings.aboutAuthor}</p>
                     </div>
                 </div>

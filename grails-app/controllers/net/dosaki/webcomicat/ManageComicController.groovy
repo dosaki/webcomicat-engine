@@ -16,6 +16,24 @@ class ManageComicController {
         render view:"index"
     }
 
+    def settings() {
+        render view:"settings"
+    }
+
+    def getSettings(){
+        def settings = Settings.get(1)
+        render settings as JSON
+    }
+
+    def saveSettings() {
+        def settings = Settings.get(1)
+        settings.properties = request.JSON
+        println request.JSON
+        settings.save(flush:true)
+
+        render "All is good"
+    }
+
     def newChapter() {
         def chapter = new Chapter();
 
@@ -56,9 +74,6 @@ class ManageComicController {
 
     def deleteComicPage(){
         def comicPage = ComicPage.get(request.JSON.id)
-        println comicPage;
-
-        println "about to delete..."
         comicPage.delete(flush:true)
 
         if(!ComicPage.get(request.JSON.id)){
