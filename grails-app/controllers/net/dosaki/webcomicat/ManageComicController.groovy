@@ -20,7 +20,7 @@ class ManageComicController {
         render view:"settings"
     }
 
-    def getSettings(){
+    def getSettings() {
         def settings = Settings.get(1)
         render settings as JSON
     }
@@ -72,7 +72,7 @@ class ManageComicController {
         }
     }
 
-    def deleteComicPage(){
+    def deleteComicPage() {
         def comicPage = ComicPage.get(request.JSON.id)
         comicPage.delete(flush:true)
 
@@ -85,7 +85,7 @@ class ManageComicController {
 
     }
 
-    def image(){
+    def image() {
         def comic = ComicPage.findBySequenceAndChapter(
             params.sequence.toInteger(),
             Chapter.findBySequence(params.chapter.toInteger())
