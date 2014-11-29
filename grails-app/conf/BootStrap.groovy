@@ -9,7 +9,7 @@ class BootStrap {
         if(!User.findByUsername('admin')){
             println "Creating admin..."
             def adminUser = new User(username: 'admin', password: 'password')
-            adminUser.save(flush: true)
+            adminUser.save(flush: true)sett
 
             UserRole.create adminUser, adminRole, true
         }
@@ -17,8 +17,19 @@ class BootStrap {
         /**
          * Generate settings if they are not there
          */
-        def settings = Settings.get(1) ?: new Settings();
-        settings.save(flush:true)
+        def settings = Settings.get(1)
+        if(!settings){
+            new Settings();
+            settings.aboutAuthor = [
+                "I'm just the developer.",
+                "If you're seeing this, the actual author probably forgot to configure something."
+            ]
+            settings.aboutComic = [
+                "Manage and host your own webcomic!",
+                "If you're seeing this, the actual author probably forgot to configure something."
+            ]
+            settings.save(flush:true)
+        }
 
         /**
          * Register JSON marshallers
@@ -29,6 +40,8 @@ class BootStrap {
         userMarshaller.register()
         def chapterMarshaller = new ChapterMarshaller()
         chapterMarshaller.register()
+        def settingsMarshaller = new SettingsMarshaller()
+        settingsMarshaller.register()
     }
 
     def destroy = {

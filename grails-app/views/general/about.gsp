@@ -11,9 +11,9 @@
             <div class="col-md-8">
                 <div class="well">
                     <h2>About "${settings.comicTitle}"</h2>
-                    <div>
-                        ${settings.aboutComic}
-                    </div>
+                    <g:each var="paragraph" in="${settings.aboutComic}">
+                        <p>${paragraph}</p>
+                    </g:each>
                 </div>
             </div>
             <div class="col-md-4">
@@ -24,7 +24,10 @@
                     <hr/>
                     <div>
                         <h3>About ${settings.mainAuthor}</h3>
-                        <p>${settings.aboutAuthor}</p>
+                        <h4>${settings.mainAuthorEmail}</h4>
+                        <g:each var="paragraph" in="${settings.aboutAuthor}">
+                            <p>${paragraph}</p>
+                        </g:each>
                     </div>
                 </div>
             </div>

@@ -28,7 +28,8 @@ class ManageComicController {
     def saveSettings() {
         def settings = Settings.get(1)
         settings.properties = request.JSON
-        println request.JSON
+        settings.aboutComic = request.JSON.aboutComic
+        settings.aboutAuthor = request.JSON.aboutAuthor
         settings.save(flush:true)
 
         render "All is good"
@@ -98,7 +99,7 @@ class ManageComicController {
     }
 
     def getAllComicPages() {
-        render comicPageService.getAllComicPages() as JSON //deepJSON
+        render comicPageService.getAllComicPages() as JSON
     }
 
     def getAllChapters() {

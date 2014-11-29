@@ -26,7 +26,6 @@ webcomicat.service('generalService', ['$rootScope', '$http',
                     });
             },
             saveSettings: function(settings){
-                console.log(settings)
                 $http.post(serverUrl+'manageComic/saveSettings', settings)
                     .success(function(data, status, headers, config){
                         console.log(data + ", " + status)
@@ -132,7 +131,10 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService', 'chapter
 
         /* Functions */
         $scope.saveSettings = function(){
-            generalService.saveSettings($scope.settings);
+            var settings = jQuery.extend(true, {}, $scope.settings);
+            settings.aboutAuthor = $scope.settings.aboutAuthor.split("\n")
+            settings.aboutComic = $scope.settings.aboutComic.split("\n")
+            generalService.saveSettings(settings);
         }
         $scope.listChapters = function(){
             chapterService.listChapters();
@@ -165,7 +167,8 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService', 'chapter
         })
         $scope.$on('gotSettings', function(event, settings){
             $scope.settings = settings;
-            console.log(settings.comicTitle.length)
+            $scope.settings.aboutAuthor = settings.aboutAuthor.join("\n")
+            $scope.settings.aboutComic = settings.aboutComic.join("\n")
         })
         $scope.$on('gotNewPage', function(event, comic){
             $scope.comics.push(comic);
