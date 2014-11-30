@@ -65,6 +65,8 @@ class ManageComicController {
             user.password=request.JSON.password.toString()
         }
 
+        user.save()
+
         if(request.JSON.isAdmin){
             UserRole.create user, Role.findByAuthority('ROLE_ADMIN'), true
         }

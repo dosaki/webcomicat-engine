@@ -38,6 +38,10 @@
                         <input type="text" name="title" ng-model="settings.mainAuthor" class="form-control form-item" placeholder="Your name">
                     </div>
                     <div class="input-group">
+                        <span class="input-group-addon form-label">Author Email</span>
+                        <input type="text" name="title" ng-model="settings.mainAuthorEmail" class="form-control form-item" placeholder="Your email">
+                    </div>
+                    <div class="input-group">
                         <span class="input-group-addon form-label">About {{settings.mainAuthor.length <= 10 ? settings.mainAuthor : "you"}}</span>
                         <textarea type="text" name="title" ng-model="settings.aboutAuthor" cols="40" rows="5" class="form-control form-item" placeholder="Tell everyone a bit about you"></textarea>
                     </div>

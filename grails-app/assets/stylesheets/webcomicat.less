@@ -1,10 +1,20 @@
 @import "bootstrap/bootstrap.less";
+@import "colour_scheme.less";
 
 @offset: 20px;
 @footer-height:100px;
 @default-radius:6px;
+@max-img-width:640px;
 
 html, body {height: 100%;}
+
+body{
+    background-color:@background-primary;
+}
+
+.page-header{
+    border:0;
+}
 
 .footer {
     position: relative;
@@ -104,7 +114,7 @@ html, body {height: 100%;}
 }
 
 .img-containter {
-    width:600px;
+    width:@max-img-width;
     margin-left:auto;
     margin-right:auto;
 }

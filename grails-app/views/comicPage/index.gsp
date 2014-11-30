@@ -25,6 +25,12 @@
                     </a></li>
                 </ul>
             </nav>
+            <div ng-if="comics.length == 0">
+                <div class="img-containter well text-center">
+                    The author hasn't posted any comics!
+                    For shame!
+                </div>
+            </div>
             <div ng-repeat="comic in comics | filter:{sequence: page}">
                 <div class="img-containter well">
                     <h2>{{comic.title}}</h2>

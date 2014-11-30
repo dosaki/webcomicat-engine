@@ -28,7 +28,7 @@ webcomicat.service('generalService', ['$rootScope', '$http',
             saveSettings: function(settings){
                 $http.post(serverUrl+'manageComic/saveSettings', settings)
                     .success(function(data, status, headers, config){
-                        console.log(data + ", " + status)
+                        $rootScope.$broadcast('settingsSaved', data);
                     })
                     .error(function(data, status, headers, config){
                         console.log(data + ", " + status)
@@ -129,7 +129,7 @@ webcomicat.service('userService', ['$rootScope', '$http',
             deleteUser: function(user){
                 $http.post(serverUrl+'manageComic/deleteUser', user)
                     .success(function(data, status, headers, config){
-                        $rootScope.$broadcast('userDeleted', data);
+                        $rootScope.$broadcast('userDeleted');
                     })
                     .error(function(data, status, headers, config){
                         console.log(status)
@@ -220,6 +220,8 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService',
         })
         $scope.$on('gotChapters', function(event, chapters){
             $scope.chapters = chapters;
+            if(chapters && chapters.length > 0)
+                $scope.newComicPage.chapter = chapters[chapters.length - 1]
         })
         $scope.$on('gotSettings', function(event, settings){
             $scope.settings = settings;
@@ -238,6 +240,10 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService',
             $scope.feedbackMsg.text = "User deleted successfully";
             $scope.feedbackMsg.type = "alert alert-success alert-dismissible";
             $scope.users = users;
+        })
+        $scope.$on('settingsSaved', function(event){
+            $scope.feedbackMsg.text = "Settings saved successfully";
+            $scope.feedbackMsg.type = "alert alert-success alert-dismissible";
         })
         $scope.$on('gotNewPage', function(event, comic){
             $scope.comics.push(comic);

@@ -46,10 +46,10 @@
                                 <td>{{user.username}}</td>
                                 <td>{{user.isAdmin ? "Administrator" : ""}} {{user.isUser ? "Normal User" : ""}}</td>
                                 <td>
-                                    <button class="btn btn-primary" data-toggle="modal" ng-click="editUser(user)" data-target="#editUserModal">
+                                    <button title="Edit" class="btn btn-primary" data-toggle="modal" ng-click="editUser(user)" data-target="#editUserModal">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                     </button>
-                                    <button ng-if="user.username != 'admin'" class="btn btn-danger" ng-click="deleteUser(user)">
+                                    <button title="Delete" ng-if="user.username != 'admin'" class="btn btn-danger" ng-click="deleteUser(user)">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </button>
                                 </td>
@@ -80,7 +80,8 @@
                                     <h3>Login Information</h3>
                                     <div class="input-group">
                                         <span class="input-group-addon form-label">Username</span>
-                                        <input type="text" name="username" {{editingUser.username == "" ? 'disabled' : ''}} class="form-control form-item" ng-model="editingUser.username" placeholder="Username">
+                                        <input type="text" name="username" {{editingUser.username == "" ? 'disabled' : ''}}
+                                            class="form-control form-item" ng-model="editingUser.username" placeholder="Username">
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-addon form-label">Password*</span>

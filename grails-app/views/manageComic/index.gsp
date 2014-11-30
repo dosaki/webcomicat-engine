@@ -66,7 +66,7 @@
                                 <td>{{comic.chapter.sequence}}: {{comic.chapter.title}}</td>
                                 <td>{{comic.releaseDate}}</td>
                                 <td>
-                                    <button class="btn btn-danger" ng-click="deleteComicPage(comic.id)">
+                                    <button title="Delete" class="btn btn-danger" ng-click="deleteComicPage(comic.id)">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </button>
                                 </td>
@@ -75,13 +75,13 @@
                     </table>
 
                     <!-- Button for new page modal -->
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#newPageModal">
-                        New Page
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPageModal">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Page
                     </button>
 
                     <!-- Button for new chapter modal -->
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#newChapter">
-                        New Chapter
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newChapter">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Chapter
                     </button>
 
                     <!-- Page Modal -->
@@ -101,12 +101,14 @@
                                     <div class="modal-body">
                                             <div class="input-group">
                                                 <span class="input-group-addon form-label">Title</span>
-                                                <input type="text" name="title" ng-model="newComicPage.title" class="form-control form-item" placeholder="Title for this particular page">
+                                                <input type="text" name="title" ng-model="newComicPage.title" class="form-control form-item"
+                                                        placeholder="Title for this particular page">
                                             </div>
                                             <div class="input-group">
                                                 <span class="input-group-addon form-label">Chapter</span>
                                                 <div class="dropdown form-item">
-                                                    <button class="btn btn-default dropdown-toggle form-item" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle form-item" type="button"
+                                                            id="dropdownMenu1" data-toggle="dropdown">
                                                         <span ng-if="newComicPage.chapter == null">
                                                             Select Chapter
                                                         </span>
@@ -161,11 +163,11 @@
                                             </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                                            Close
-                                        </button>
                                         <button type="submit" class="btn btn-primary" onclick="$('#newPageModal').modal('hide')">
                                             <span class="glyphicon glyphicon-upload"></span> Upload Comic
+                                        </button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            Close
                                         </button>
                                     </div>
                                 </form>
@@ -199,11 +201,11 @@
                                             </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                                            Close
-                                        </button>
                                         <button type="button" class="btn btn-primary" ng-click="createNewChapter(newChapter)" data-dismiss="modal">
                                             Create Chapter
+                                        </button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            Close
                                         </button>
                                     </div>
                                 </form>

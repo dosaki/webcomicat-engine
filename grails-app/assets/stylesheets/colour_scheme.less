@@ -1,0 +1,30 @@
+/* GENERAL */
+@main-colour: lighten(#4c4431,25%);
+
+@brand-primary: @main-colour;
+@background-primary: lighten(#9a702c, 50%);
+
+@well-bg: darken(@background-primary,7%);
+@well-border: darken(@well-bg, 7%);
+
+@hr-border: @well-border;
+
+/* NAVBAR */
+nav{
+    font-weight:bold;
+}
+@navbar-default-color: #dac199;
+@navbar-default-bg: darken(@main-colour,25%);
+@navbar-default-border: darken(@navbar-default-bg, 6.5%);
+@navbar-default-link-color:                @navbar-default-color;
+@navbar-default-link-hover-color:          darken(@navbar-default-color, 25%);
+@navbar-default-link-hover-bg:             transparent;
+@navbar-default-link-active-color:         lighten(@navbar-default-color, 30%);
+@navbar-default-link-active-bg:            darken(@navbar-default-bg, 6.5%);
+@navbar-default-link-disabled-color:       #ccc;
+@navbar-default-link-disabled-bg:          transparent;
+
+// Navbar toggle
+@navbar-default-toggle-hover-bg:           @navbar-default-color;
+@navbar-default-toggle-icon-bar-bg:        #888;
+@navbar-default-toggle-border-color:       lighten(@navbar-default-bg, 6.5%);;
