@@ -127,8 +127,15 @@
                                                 <input type="text" name="description" ng-model="newComicPage.description" class="form-control form-item"
                                                     placeholder="Anything you'd like to comment or say along with this page"/>
                                             </div>
-                                            <div class="input-group text-center">
-                                                <input id="imageInput" type="file" onchange="updatePreview(this.files);angular.element(this).scope().updateNewComicImg(this.files);" name="comicImage"/>
+                                            <div class="input-group">
+                                                <label for="imageInput" class="btn btn-primary">
+                                                    <span class="glyphicon glyphicon-folder-open"></span> Choose Image
+                                                </label>
+                                                <input class="invisible" id="imageInput" type="file"
+                                                    onchange="updatePreview(this.files);angular.element(this).scope().updateNewComicImg(this.files);"
+                                                    name="comicImage"/>
+                                            </div>
+                                            <div class="text-center">
                                                 <img id="comicPreview" class="image-thumbnail">
                                                 <script>
                                                     function updatePreview(files){
