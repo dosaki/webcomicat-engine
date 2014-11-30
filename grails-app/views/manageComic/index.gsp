@@ -117,7 +117,9 @@
                                                     </button>
                                                     <ul class="dropdown-menu form-item" role="menu" aria-labelledby="dropdownMenu1">
                                                         <li ng-repeat="chapter in chapters | orderBy:'sequence':true">
-                                                            <a role="menuitem" tabindex="-1" href="#" ng-click="updateNewComicChapt(chapter)">{{chapter.sequence}}: {{chapter.title}}</a>
+                                                            <a role="menuitem" tabindex="-1" href="#" ng-click="updateNewComicChapt(chapter)">
+                                                                {{chapter.sequence}}: {{chapter.title}}
+                                                            </a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -127,27 +129,35 @@
                                                 <input type="text" name="description" ng-model="newComicPage.description" class="form-control form-item"
                                                     placeholder="Anything you'd like to comment or say along with this page"/>
                                             </div>
-                                            <div class="input-group">
-                                                <label for="imageInput" class="btn btn-primary">
+                                            <div class="input-group text-center">
+                                                <label id="outsideImageInputBtn" style="visibility: hidden;" for="imageInput" class="btn btn-primary">
                                                     <span class="glyphicon glyphicon-folder-open"></span> Choose Image
                                                 </label>
                                                 <input class="invisible" id="imageInput" type="file"
                                                     onchange="updatePreview(this.files);angular.element(this).scope().updateNewComicImg(this.files);"
                                                     name="comicImage"/>
-                                            </div>
-                                            <div class="text-center">
-                                                <img id="comicPreview" class="image-thumbnail">
-                                                <script>
-                                                    function updatePreview(files){
-                                                        if (files && files[0]) {
-                                                            var reader = new FileReader();
-                                                            reader.onload = function (e) {
-                                                                $('#comicPreview').attr('src', e.target.result);
+                                                <div>
+                                                    <div id="imgPlaceholder" class="image-thumbnail-placeholder">
+                                                        <span class="icon-big glyphicon glyphicon-picture"></span><br/>
+                                                        <label for="imageInput" class="btn btn-primary">
+                                                            <span class="glyphicon glyphicon-folder-open"></span> Choose Image
+                                                        </label>
+                                                    </div>
+                                                    <img id="comicPreview" class="image-thumbnail">
+                                                    <script>
+                                                        function updatePreview(files){
+                                                            if (files && files[0]) {
+                                                                $("#imgPlaceholder").hide();
+                                                                $("#outsideImageInputBtn")[0].style.visibility="visible"
+                                                                var reader = new FileReader();
+                                                                reader.onload = function (e) {
+                                                                    $('#comicPreview').attr('src', e.target.result);
+                                                                }
+                                                                reader.readAsDataURL(files[0]);
                                                             }
-                                                            reader.readAsDataURL(files[0]);
                                                         }
-                                                    }
-                                                </script>
+                                                    </script>
+                                                </div>
                                             </div>
                                     </div>
                                     <div class="modal-footer">
