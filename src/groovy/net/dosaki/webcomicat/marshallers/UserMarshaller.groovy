@@ -13,6 +13,8 @@ class UserMarshaller {
                 enabled: u?.enabled,
                 accountExpired: u?.accountExpired,
                 accountLocked: u?.accountLocked,
+                isAdmin: u?.hasRole("ROLE_ADMIN"),
+                isUser: u?.hasRole("ROLE_USER"),
             ]
         }
     }

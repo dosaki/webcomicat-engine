@@ -10,11 +10,19 @@
         <div ng-app="webcomicat" ng-controller="ComicController">
             <nav class="text-center">
                 <ul class="pagination">
-                    <li><a href="#" ng-click="page = 0">&#10096;&#10096;</a></li>
-                    <li><a href="#" ng-click="page = incrementPage()">&#10096;</a></li>
+                    <li><a href="#" ng-click="page = 0">
+                        <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+                    </a></li>
+                    <li><a href="#" ng-click="page = incrementPage()">
+                        <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+                    </a></li>
                     <li><a>{{page}}</a></li>
-                    <li><a href="#" ng-click="page = decrementPage()">&#10097;</a></li>
-                    <li><a href="#" ng-click="page = comics.length - 1">&#10097;&#10097;</a></li>
+                    <li><a href="#" ng-click="page = decrementPage()">
+                        <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+                    </a></li>
+                    <li><a href="#" ng-click="page = comics.length - 1">
+                        <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+                    </a></li>
                 </ul>
             </nav>
             <div ng-repeat="comic in comics | filter:{sequence: page}">

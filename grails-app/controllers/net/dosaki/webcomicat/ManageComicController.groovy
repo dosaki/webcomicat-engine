@@ -16,6 +16,10 @@ class ManageComicController {
         render view:"index"
     }
 
+    def users() {
+        render view:"users"
+    }
+
     def settings() {
         render view:"settings"
     }
@@ -104,5 +108,9 @@ class ManageComicController {
 
     def getAllChapters() {
         render chapterService.getAllChapters() as JSON
+    }
+
+    def getAllUsers(){
+        render User.getAll() as JSON
     }
 }

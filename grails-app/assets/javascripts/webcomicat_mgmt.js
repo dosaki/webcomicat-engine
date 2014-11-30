@@ -105,14 +105,33 @@ webcomicat.service('chapterService', ['$rootScope', '$http',
     }
 ]);
 
-webcomicat.controller("AdminController", ['$scope', 'comicPageService', 'chapterService', 'generalService',
-    function($scope, comicPageService, chapterService, generalService){
+webcomicat.service('userService', ['$rootScope', '$http',
+    function($rootScope, $http){
+        return {
+            listUsers: function(){
+                $http.get(serverUrl+'manageComic/getAllUsers')
+                    .success(function(data, status, headers, config){
+                        $rootScope.$broadcast('gotUsers', data);
+                    })
+                    .error(function(data, status, headers, config){
+                        console.log(status)
+                    });
+            },
+        }
+    }
+]);
+
+webcomicat.controller("AdminController", ['$scope', 'comicPageService',
+                                          'chapterService', 'generalService',
+                                          'userService',
+    function($scope, comicPageService, chapterService, generalService, userService){
         comicPageService.listComicPages();
         chapterService.listChapters();
         generalService.getSettings();
+        userService.listUsers();
 
         $scope.listOrderBy='releaseDate'
-        $scope.listOrder=false
+        $scope.listOrder=true
 
         $scope.newChapter = {
             title:"",
@@ -169,6 +188,9 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService', 'chapter
             $scope.settings = settings;
             $scope.settings.aboutAuthor = settings.aboutAuthor.join("\n")
             $scope.settings.aboutComic = settings.aboutComic.join("\n")
+        })
+        $scope.$on('gotUsers', function(event, users){
+            $scope.users = users;
         })
         $scope.$on('gotNewPage', function(event, comic){
             $scope.comics.push(comic);

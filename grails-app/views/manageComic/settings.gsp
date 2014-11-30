@@ -12,6 +12,7 @@
                 <ul class="nav nav-pills nav-stacked" role="tablist">
                     <li role="presentation"><a href="/manageComic">Comic Pages</a></li>
                     <li role="presentation" class="active"><a href="#">Settings</a></li>
+                    <li role="presentation"><a href="/manageComic/users">User Management</a></li>
                 </ul>
             </div>
             <div class="main-container">

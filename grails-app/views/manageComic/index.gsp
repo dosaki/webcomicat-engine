@@ -12,6 +12,7 @@
                 <ul class="nav nav-pills nav-stacked" role="tablist">
                     <li role="presentation" class="active"><a href="#">Comic Pages</a></li>
                     <li role="presentation"><a href="/manageComic/settings">Settings</a></li>
+                    <li role="presentation"><a href="/manageComic/users">User Management</a></li>
                 </ul>
             </div>
             <div class="main-container">
@@ -27,10 +28,34 @@
                     <table class="table">
                         <thead>
                             <th>Thumbnail</th>
-                            <th><a href="javascript:void(0)" ng-click="listOrderBy='author'; listOrder=!listOrder">Author</a></th>
-                            <th><a href="javascript:void(0)" ng-click="listOrderBy='title'; listOrder=!listOrder">Title</a></th>
-                            <th><a href="javascript:void(0)" ng-click="listOrderBy='chapter'; listOrder=!listOrder">Chapter</a></th>
-                            <th><a href="javascript:void(0)" ng-click="listOrderBy='releaseDate'; listOrder=!listOrder">Release Date</a></th>
+                            <th><a href="javascript:void(0)" ng-click="listOrderBy='author'; listOrder=!listOrder">
+                                Author
+                                <span ng-if="listOrderBy=='author'">
+                                    <span ng-if="listOrder" class="glyphicon glyphicon-chevron-up"></span>
+                                    <span ng-if="!listOrder" class="glyphicon glyphicon-chevron-down"></span>
+                                </span>
+                            </a></th>
+                            <th><a href="javascript:void(0)" ng-click="listOrderBy='title'; listOrder=!listOrder">
+                                Title
+                                <span ng-if="listOrderBy=='title'">
+                                    <span ng-if="listOrder" class="glyphicon glyphicon-chevron-up">
+                                    </span><span ng-if="!listOrder" class="glyphicon glyphicon-chevron-down"></span>
+                                </span>
+                            </a></th>
+                            <th><a href="javascript:void(0)" ng-click="listOrderBy='chapter'; listOrder=!listOrder">
+                                Chapter
+                                <span ng-if="listOrderBy=='chapter'">
+                                    <span ng-if="listOrder" class="glyphicon glyphicon-chevron-up"></span>
+                                    <span ng-if="!listOrder" class="glyphicon glyphicon-chevron-down"></span>
+                                </span>
+                            </a></th>
+                            <th><a href="javascript:void(0)" ng-click="listOrderBy='releaseDate'; listOrder=!listOrder">
+                                Release Date
+                                <span ng-if="listOrderBy=='releaseDate'">
+                                    <span ng-if="listOrder" class="glyphicon glyphicon-chevron-up"></span>
+                                    <span ng-if="!listOrder" class="glyphicon glyphicon-chevron-down"></span>
+                                </span>
+                            </a></th>
                             <th></th>
                         </thead>
                         <tbody>
@@ -40,7 +65,11 @@
                                 <td>{{comic.title}}</td>
                                 <td>{{comic.chapter.sequence}}: {{comic.chapter.title}}</td>
                                 <td>{{comic.releaseDate}}</td>
-                                <td><button class="btn btn-danger" ng-click="deleteComicPage(comic.id)">&times;</button></td>
+                                <td>
+                                    <button class="btn btn-danger" ng-click="deleteComicPage(comic.id)">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -118,7 +147,9 @@
                                         <button type="button" class="btn btn-default" data-dismiss="modal">
                                             Close
                                         </button>
-                                        <input type="submit" value="Upload New Comic" onclick="$('#newPageModal').modal('hide')" class="btn btn-primary"/>
+                                        <button type="submit" class="btn btn-primary" onclick="$('#newPageModal').modal('hide')">
+                                            <span class="glyphicon glyphicon-upload"></span> Upload Comic
+                                        </button>
                                     </div>
                                 </form>
                             </div>
