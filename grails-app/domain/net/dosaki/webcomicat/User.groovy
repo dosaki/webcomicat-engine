@@ -27,7 +27,6 @@ class User {
 	}
 
 	Boolean hasRole(role) {
-		println authorities
 		return authorities.any { it.authority == role }
 	}
 
@@ -36,9 +35,9 @@ class User {
 	}
 
 	def beforeUpdate() {
-		if (isDirty('password')) {
+		//if (isDirty('password')) { //commented because of dirty checking bug
 			encodePassword()
-		}
+		//}
 	}
 
 	protected void encodePassword() {

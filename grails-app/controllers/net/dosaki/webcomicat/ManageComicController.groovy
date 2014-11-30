@@ -39,10 +39,59 @@ class ManageComicController {
         render "All is good"
     }
 
-    def newChapter() {
-        def chapter = new Chapter();
+    def deleteUser(){
+        def user = User.findByUsername(request.JSON.username)
+        def userRoles = UserRole.findAllByUser(user)
+        def comicPages = ComicPage.findAllByAuthor(user)
+        userRoles*.delete()
+        comicPages*.author=User.findAllByUsername('admin')
+        user.delete(flush:true)
 
-        chapter.sequence = request.JSON.sequence.toInteger();
+        if(!User.findByUsername(request.JSON.username)){
+            render User.getAll() as JSON
+        }
+        else{
+            response.sendError(500, user.errors as JSON)
+        }
+    }
+
+    def saveUser(){
+        def user = User.findByUsername(request.JSON.username)
+        if(!user){
+            user = new User(username:request.JSON.username)
+        }
+
+        if(request.JSON.password){
+            user.password=request.JSON.password.toString()
+        }
+
+        if(request.JSON.isAdmin){
+            UserRole.create user, Role.findByAuthority('ROLE_ADMIN'), true
+        }
+        else{
+            UserRole.remove user, Role.findByAuthority('ROLE_ADMIN'), true
+        }
+        if(request.JSON.isUser){
+            UserRole.create user, Role.findByAuthority('ROLE_USER'), true
+        }
+        else{
+            UserRole.remove user, Role.findByAuthority('ROLE_USER'), true
+        }
+
+
+        if(user.save(flush:true)){
+            render User.getAll() as JSON
+        }
+        else{
+            response.sendError(500, user.errors as JSON)
+        }
+
+    }
+
+    def newChapter() {
+        def chapter = new Chapter()
+
+        chapter.sequence = request.JSON.sequence.toInteger()
         chapter.title = request.JSON.title
 
         if(chapter.validate()){
@@ -50,7 +99,7 @@ class ManageComicController {
             render chapter as JSON
         }
         else{
-            response.sendError(500, chapter.errors as JSON);
+            response.sendError(500, chapter.errors as JSON)
         }
     }
     def newComicPage() {
@@ -73,7 +122,7 @@ class ManageComicController {
             render newComicPage as JSON
         }
         else{
-            response.sendError(500, newComicPage.errors as JSON);
+            response.sendError(500, newComicPage.errors as JSON)
         }
     }
 
@@ -85,7 +134,7 @@ class ManageComicController {
             render request.JSON.id
         }
         else{
-            response.sendError(500, "Couldn't delete comic!");
+            response.sendError(500, "Couldn't delete comic!")
         }
 
     }

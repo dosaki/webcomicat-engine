@@ -42,8 +42,8 @@
                         <textarea type="text" name="title" ng-model="settings.aboutAuthor" cols="40" rows="5" class="form-control form-item" placeholder="Tell everyone a bit about you"></textarea>
                     </div>
 
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" ng-click="saveSettings()">
-                        Save Changes
+                    <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="saveSettings()">
+                        <span class="glyphicon glyphicon-floppy-disk"></span> Save Changes
                     </button>
 
                 </div>

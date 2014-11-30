@@ -4,7 +4,7 @@
 //= require_tree views
 //= require_self
 
-var serverUrl = "http://localhost:8080/"
+var serverUrl = "/"
 
 var webcomicat = angular.module('webcomicat',[]);
 
@@ -117,6 +117,24 @@ webcomicat.service('userService', ['$rootScope', '$http',
                         console.log(status)
                     });
             },
+            saveUser: function(user){
+                $http.post(serverUrl+'manageComic/saveUser', user)
+                    .success(function(data, status, headers, config){
+                        $rootScope.$broadcast('userSaved', data);
+                    })
+                    .error(function(data, status, headers, config){
+                        console.log(status)
+                    });
+            },
+            deleteUser: function(user){
+                $http.post(serverUrl+'manageComic/deleteUser', user)
+                    .success(function(data, status, headers, config){
+                        $rootScope.$broadcast('userDeleted', data);
+                    })
+                    .error(function(data, status, headers, config){
+                        console.log(status)
+                    });
+            },
         }
     }
 ]);
@@ -132,6 +150,8 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService',
 
         $scope.listOrderBy='releaseDate'
         $scope.listOrder=true
+
+        $scope.editingUser=null
 
         $scope.newChapter = {
             title:"",
@@ -176,6 +196,23 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService',
         $scope.updateNewComicImg = function(files){
             $scope.newComicPage.image = files[0]
         }
+        $scope.editUser = function(user){
+            $scope.editingUser = user
+        }
+        $scope.newUser = function(user){
+            $scope.editingUser = {
+                username:"",
+                password:"",
+                isAdmin:false,
+                isUser:false
+            }
+        }
+        $scope.saveUser = function(user){
+            userService.saveUser(user)
+        }
+        $scope.deleteUser = function(user){
+            userService.deleteUser(user)
+        }
 
         /* Listeners */
         $scope.$on('gotComicList', function(event, comicList){
@@ -190,6 +227,16 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService',
             $scope.settings.aboutComic = settings.aboutComic.join("\n")
         })
         $scope.$on('gotUsers', function(event, users){
+            $scope.users = users;
+        })
+        $scope.$on('userSaved', function(event, users){
+            $scope.feedbackMsg.text = "User saved successfully";
+            $scope.feedbackMsg.type = "alert alert-success alert-dismissible";
+            $scope.users = users;
+        })
+        $scope.$on('userDeleted', function(event, users){
+            $scope.feedbackMsg.text = "User deleted successfully";
+            $scope.feedbackMsg.type = "alert alert-success alert-dismissible";
             $scope.users = users;
         })
         $scope.$on('gotNewPage', function(event, comic){

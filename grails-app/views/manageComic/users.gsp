@@ -46,18 +46,74 @@
                                 <td>{{user.username}}</td>
                                 <td>{{user.isAdmin ? "Administrator" : ""}} {{user.isUser ? "Normal User" : ""}}</td>
                                 <td>
-                                    <button class="btn btn-primary" ng-click="editUser(user.id)">
+                                    <button class="btn btn-primary" data-toggle="modal" ng-click="editUser(user)" data-target="#editUserModal">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                     </button>
-                                    <button class="btn btn-danger" ng-click="deleteUser(user.id)">
+                                    <button ng-if="user.username != 'admin'" class="btn btn-danger" ng-click="deleteUser(user)">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <button class="btn btn-primary" data-toggle="modal" ng-click="newUser(user)" data-target="#editUserModal">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New User
+                    </button>
                 </div>
             </div>
+
+            <!-- User Modal -->
+            <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserTitle" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="editUserTitle">
+                                Editing {{editingUser.username}}
+                            </h4>
+                        </div>
+                        <form>
+                            <div class="modal-body">
+                                    <h3>Login Information</h3>
+                                    <div class="input-group">
+                                        <span class="input-group-addon form-label">Username</span>
+                                        <input type="text" name="username" {{editingUser.username == "" ? 'disabled' : ''}} class="form-control form-item" ng-model="editingUser.username" placeholder="Username">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon form-label">Password*</span>
+                                        <input type="password" name="password" class="form-control form-item"
+                                            ng-model="editingUser.password" placeholder="">
+                                    </div>
+                                        <small>*Fill field to change</small>
+
+                                    <h3>Roles</h3>
+                                    <div class="input-group">
+                                        <div class="box horizontal paddedbox-large text-center">
+                                            <div>Admin</div>
+                                            <input type="checkbox" name="admin" ng-model="editingUser.isAdmin" placeholder="">
+                                        </div>
+                                        <div class="box horizontal paddedbox-large text-center">
+                                            <div>User</div>
+                                            <input type="checkbox" name="admin" ng-model="editingUser.isUser" placeholder="">
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" ng-click="saveUser(editingUser)" data-dismiss="modal">
+                                    <span class="glyphicon glyphicon-floppy-disk"></span> Save
+                                </button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </body>
 </html>

@@ -9,10 +9,11 @@ class BootStrap {
         if(!User.findByUsername('admin')){
             println "Creating admin..."
             def adminUser = new User(username: 'admin', password: 'password')
-            adminUser.save(flush: true)sett
+            adminUser.save(flush: true)
 
             UserRole.create adminUser, adminRole, true
         }
+
 
         /**
          * Generate settings if they are not there

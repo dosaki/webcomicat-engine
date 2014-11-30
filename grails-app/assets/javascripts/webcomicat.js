@@ -4,7 +4,7 @@
 //= require_tree views
 //= require_self
 
-var serverUrl = "http://localhost:8080/"
+var serverUrl = "/"
 
 var webcomicat = angular.module('webcomicat',[]);
 
