@@ -12,13 +12,13 @@ An easy solution to set up, manage and publish your webcomic!
 5. [Found a bug? Have a suggestion?](#found-a-bug-have-a-suggestion)
 
 
-##1. Dependencies
+##Dependencies
 * Java
 * Grails
 * Tomcat
 
 
-##2. Installation
+##Installation
 
 Assuming you have Grails and Tomcat set up.
 
@@ -29,18 +29,18 @@ Assuming you have Grails and Tomcat set up.
 
 An installer is coming though, see [Issue #1](https://github.com/dosaki/webcomicat-engine/issues/1)
 
-##3. Configuration
+##Configuration
 
 1. Go to <your URL>/manageComic/
 2. Click "Settings" and change your configurations there.
 
 
-##4. Customization
+##Customization
 
 You can't customize much at the moment. Sorry.
 Support for this is [planned](https://github.com/dosaki/webcomicat-engine/issues/5) though.
 
 
-##5. Found a bug? Have a suggestion?
+##Found a bug? Have a suggestion?
 
 Head on to the [issue list](https://github.com/dosaki/webcomicat-engine/issues) and [make a new issue](https://github.com/dosaki/webcomicat-engine/issues/new). Make sure your idea/bug report isn't there already.
