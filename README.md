@@ -14,8 +14,7 @@ An easy solution to set up, manage and publish your webcomic!
 
 Assuming you have Grails and Tomcat set up.
 
-1. Clone this repository
-    1.1 Or [download](https://github.com/dosaki/webcomicat-engine/archive/master.zip) the source and unzip it somewhere.
+1. Clone this repository (Or [download](https://github.com/dosaki/webcomicat-engine/archive/master.zip) the source and unzip it somewhere)
 2. `cd` into `webcomicat-engine`
 3. Run `grails war`
 4. Copy the war file into your tomcat webapps folder (I think the default is in `/var/lib/tomcat7/webapps`)
