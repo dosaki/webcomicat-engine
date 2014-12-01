@@ -29,7 +29,14 @@
 										<span class="icon-bar"></span>
 										<span class="icon-bar"></span>
 									</button>
-									<a class="navbar-brand" href="/"><img class="image-brand" src="/image/get/favicon"/></a>
+									<a class="navbar-brand" href="/">
+										<g:if test="${settings.favicon}">
+											<img class="image-brand" src="/image/get/favicon"/>
+										</g:if>
+										<g:else>
+											<img class="image-brand" src="/assets/favicon.png"/>
+										</g:else>
+									</a>
 								</div>
 
 								<!-- Collect the nav links, forms, and other content for toggling -->

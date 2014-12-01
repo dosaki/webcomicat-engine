@@ -12,6 +12,9 @@ class GeneralController {
     }
     def about(){
         def settings = Settings.get(1)
+        if(!settings.favicon){
+
+        }
         render view:"about",
                 model:[
                     "settings": settings,

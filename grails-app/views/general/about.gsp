@@ -18,7 +18,12 @@
             <div class="col-md-4">
                 <div class="well">
                     <div class="text-center">
-                        <img class="profile-pic" src="/image/get/profileImage"/>
+                        <g:if test="${settings.profileImage}">
+                            <img class="profile-pic" src="/image/get/profileImage"/>
+                        </g:if>
+                        <g:else>
+                            <img class="profile-pic" src="/assets/webcomicat.png"/>
+                        </g:else>
                     </div>
                     <hr/>
                     <div>

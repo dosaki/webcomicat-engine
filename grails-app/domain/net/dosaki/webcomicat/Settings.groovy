@@ -4,8 +4,6 @@ class Settings {
     String comicTitle = "Webcomicat"
     String mainAuthor = "Dosaki"
     String mainAuthorEmail = "tiago.f.a.correia@gmail.com"
-    Image profileImage
-    Image favicon
 
     static hasMany = [paragraphs:Paragraph]
 
@@ -36,15 +34,18 @@ class Settings {
         }
     }
 
+    def getProfileImage(){
+        return Image.findByName("profileImage")
+    }
+    def getFavicon(){
+        return Image.findByName("favicon")
+    }
     def getProfileImageName(){
-        return profileImage?.name
+        return Image.findByName("profileImage")?.name
     }
-    def setProfileImgName(){}
-
     def getFaviconName(){
-        return favicon?.name
+        return Image.findByName("favicon")?.name
     }
-    def setFaviconName(){}
 
     static constraints = {
         profileImage nullable:true
