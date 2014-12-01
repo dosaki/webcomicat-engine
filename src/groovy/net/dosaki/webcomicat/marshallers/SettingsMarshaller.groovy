@@ -12,6 +12,8 @@ class SettingsMarshaller {
                 mainAuthor: s.mainAuthor,
                 mainAuthorEmail: s.mainAuthorEmail,
                 aboutAuthor:s.getAboutAuthor(),
+                profileImage:s.getProfileImageName(),
+                favicon:s.getFaviconName(),
             ]
         }
     }

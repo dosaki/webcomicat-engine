@@ -19,7 +19,7 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://localhost/webcomicat_dev?zeroDateTimeBehavior=convertToNull"
+            url = "jdbc:mysql://localhost/webcomicat?zeroDateTimeBehavior=convertToNull"
         }
     }
     test {

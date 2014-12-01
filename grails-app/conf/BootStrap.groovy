@@ -20,7 +20,7 @@ class BootStrap {
          */
         def settings = Settings.get(1)
         if(!settings){
-            new Settings();
+            settings = new Settings();
             settings.aboutAuthor = [
                 "I'm just the developer.",
                 "If you're seeing this, the actual author probably forgot to configure something."

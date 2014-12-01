@@ -73,6 +73,7 @@ grails.hibernate.osiv.readonly = false
 
 
 grails.assets.less.compiler = 'less4j'
+grails.assets.minifyJs = false
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'net.dosaki.webcomicat.User'

@@ -1,7 +1,6 @@
 <html>
     <head>
         <meta name="layout" content="main">
-        <asset:stylesheet href="webcomicat.css"/>
         <asset:javascript src="webcomicat.js"/>
         <asset:javascript src="libs/bootstrap/bootstrap.min.js"/>
     </head>

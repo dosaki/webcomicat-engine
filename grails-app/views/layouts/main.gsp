@@ -11,6 +11,7 @@
 %>
 	<head>
 		<title>${settings.comicTitle}</title>
+		<asset:stylesheet href="webcomicat.css"/>
 		<g:layoutHead/>
 	</head>
 	<body>
@@ -28,7 +29,7 @@
 										<span class="icon-bar"></span>
 										<span class="icon-bar"></span>
 									</button>
-									<a class="navbar-brand" href="/"><img class="profile-pic" src="/assets/favicon.png"/></a>
+									<a class="navbar-brand" href="/"><img class="image-brand" src="/image/get/favicon"/></a>
 								</div>
 
 								<!-- Collect the nav links, forms, and other content for toggling -->

@@ -1,7 +1,6 @@
 <html>
     <head>
         <meta name="layout" content="main">
-        <asset:stylesheet href="webcomicat.css"/>
         <asset:javascript src="webcomicat.js"/>
         <asset:javascript src="libs/bootstrap/bootstrap.min.js"/>
     </head>
@@ -19,7 +18,7 @@
             <div class="col-md-4">
                 <div class="well">
                     <div class="text-center">
-                        <img class="profile-pic" src="/assets/profile_pic.png"/>
+                        <img class="profile-pic" src="/image/get/profileImage"/>
                     </div>
                     <hr/>
                     <div>

@@ -25,7 +25,14 @@ webcomicat.service('generalService', ['$rootScope', '$http',
                         console.log(status)
                     });
             },
-            saveSettings: function(settings){
+            saveSettings: function(settings, images){
+                console.log(images)
+                if(images && images.favicon){
+                    this.uploadImage(images.favicon,"favicon");
+                }
+                if(images && images.profileImage){
+                    this.uploadImage(images.profileImage,"profileImage");
+                }
                 $http.post(serverUrl+'manageComic/saveSettings', settings)
                     .success(function(data, status, headers, config){
                         $rootScope.$broadcast('settingsSaved', data);
@@ -33,6 +40,25 @@ webcomicat.service('generalService', ['$rootScope', '$http',
                     .error(function(data, status, headers, config){
                         console.log(data + ", " + status)
                     });
+            },
+            uploadImage: function(image, name){
+                console.log("Uploading" + name)
+                var fd = new FormData();
+                //Take the first selected file
+                fd.append("file", image);
+                fd.append("name", name);
+
+                $http.post(serverUrl+'image/upload', fd, {
+                    headers: {'Content-Type': undefined },
+                    transformRequest: angular.identity
+                })
+                .success(function(data, status, headers, config){
+                    //$rootScope.$broadcast('imageUploaded', data);
+                    console.log(data)
+                })
+                .error(function(data, status, headers, config){
+                    $rootScope.$broadcast('error', data);
+                });
             },
         }
     }
@@ -167,13 +193,17 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService',
             text:"",
             type:"invisible"
         }
+        $scope.settingImages = {
+            favicon:null,
+            profilePicture:null
+        }
 
         /* Functions */
         $scope.saveSettings = function(){
             var settings = jQuery.extend(true, {}, $scope.settings);
             settings.aboutAuthor = $scope.settings.aboutAuthor.split("\n")
             settings.aboutComic = $scope.settings.aboutComic.split("\n")
-            generalService.saveSettings(settings);
+            generalService.saveSettings(settings, $scope.settingImages);
         }
         $scope.listChapters = function(){
             chapterService.listChapters();
@@ -195,6 +225,12 @@ webcomicat.controller("AdminController", ['$scope', 'comicPageService',
         }
         $scope.updateNewComicImg = function(files){
             $scope.newComicPage.image = files[0]
+        }
+        $scope.updateProfileImage = function(files){
+            $scope.settingImages.profileImage = files[0]
+        }
+        $scope.updateFavicon = function(files){
+            $scope.settingImages.favicon = files[0]
         }
         $scope.editUser = function(user){
             $scope.editingUser = user
