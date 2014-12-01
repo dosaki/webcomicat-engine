@@ -31,7 +31,7 @@ An installer is coming though, see [Issue #1](https://github.com/dosaki/webcomic
 
 ##Configuration
 
-1. Go to <your URL>/manageComic/
+1. Go to `<your URL>/manageComic/`
 2. Click "Settings" and change your configurations there.
 
 
