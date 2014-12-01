@@ -3,12 +3,29 @@ webcomicat-engine
 
 <img src="https://raw.githubusercontent.com/dosaki/webcomicat-engine/master/grails-app/assets/images/webcomicat.png"/>
 
-An easy solution to set up, manage and publish your webcomic
+An easy solution to set up, manage and publish your webcomic!
+
+##Dependencies
+* Java
+* Grails
+* Tomcat
+
+##How to install
+
+Assuming you have Grails and Tomcat set up.
+
+1. Clone this repository
+    1.1 Or [download](https://github.com/dosaki/webcomicat-engine/archive/master.zip) the source and unzip it somewhere.
+2. `cd` into `webcomicat-engine`
+3. Run `grails war`
+4. Copy the war file into your tomcat webapps folder (I think the default is in `/var/lib/tomcat7/webapps`)
 
 ##How to configure
 
-1. Replace the [favicon.png](http://github.com/dosaki/webcomicat-engine/master/grails-app/assets/images/favicon.png) and the [profile_pic.png](http://github.com/dosaki/webcomicat-engine/master/grails-app/assets/images/profile_pic.png) with your own.
+1. Go to <your URL>/manageComic/
+2. Click "Settings" and change your configurations there.
 
-2. Start the application..
 
-3. Go to <your URL>/manageComic/settings and change your configurations there.
+##How do I customize?
+
+You can't at the moment. Sorry.
