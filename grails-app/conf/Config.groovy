@@ -75,6 +75,10 @@ grails.hibernate.osiv.readonly = false
 grails.assets.less.compiler = 'less4j'
 grails.assets.minifyJs = false
 
+//Exclude bootstrap files from being compiled individually
+grails.assets.excludes = ["bootstrap/*.less"]
+grails.assets.includes = ["bootstrap/bootstrap.less"] //include bootstrap.less back in.
+
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'net.dosaki.webcomicat.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'net.dosaki.webcomicat.UserRole'
