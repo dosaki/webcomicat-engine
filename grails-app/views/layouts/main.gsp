@@ -50,6 +50,19 @@
 										</a></li>
 									</ul>
 									<ul class="nav navbar-nav navbar-right">
+										<sec:ifLoggedIn>
+	        								<li>
+												<a href="javascript:document.logoutForm.submit()">Logout</a>
+				                                <!--
+				                                    Spring Security wants a POST request for logging out so we have this form which
+				                                    is submitted through the Logout link above (through javascript)
+				                                -->
+				                                <form name="logoutForm" method="POST" style="display:none;"
+														action="${createLink(controller:'logout')}">
+				                                    <input type="hidden" name="" value="">
+				                                </form>
+											</li>
+										</sec:ifLoggedIn>
         								<li><a>by ${settings.mainAuthor}</a></li>
 									</ul>
 								</div><!-- /.navbar-collapse -->
