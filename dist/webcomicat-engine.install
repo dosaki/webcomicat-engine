@@ -22,7 +22,7 @@ $1"
 if [ ! -f ./webcomicat-$VERSION.war ]
 then
     checkDependency "wget"
-    #wget https://github.com/dosaki/webcomicat-engine/tree/pre-alpha/dist/webcomicat-$VERSION.war
+    wget https://github.com/dosaki/webcomicat-engine/tree/v$VERSION/dist/webcomicat-$VERSION.war
     if [ -f webcomicat-$VERSION.war ]
     then
         FAIL=true
