@@ -7,14 +7,19 @@ PKGMNGR=""
 FAIL=false
 MISSING=""
 
+if [ whoami == "root" ]
+then
+    echo "Please run me as root!"
+    exit 1
+fi
+
 function checkDependency {
     dependency=`which $1 2>/dev/null`
     if [ ! -f "$dependency" ]
     then
-        echo "Failed $1"
-        FAIL=true
-        MISSING="$MISSING \
-$1"
+        echo "Couldn't find $1. Installing..."
+        apt-get install $1
+
     fi
 }
 
@@ -25,7 +30,6 @@ then
     wget https://github.com/dosaki/webcomicat-engine/tree/v$VERSION/dist/webcomicat-$VERSION.war
     if [ -f webcomicat-$VERSION.war ]
     then
-        FAIL=true
         echo "Missing war file."
     fi
 fi
@@ -36,24 +40,9 @@ checkDependency "mysql"
 
 if [ ! -d $WEBAPPSFDIR ] || [ ! -d $TOMCATDIR ]
 then
-    FAIL=true
-    MISSING="$MISSING \
-tomcat7"
+    echo "Couldn't find tomcat7. Installing..."
+    apt-get install tomcat7
 fi
 
-if [ "$FAIL" == "true" ]
-then
-    echo "Dependencies missing. Please install the following:"
-    for p in $MISSING
-    do
-        echo " - $p"
-    done
-    exit 1
-fi
-    mv webcomicat-$VERSION.war WEBAPPSDIR/ROOT.war
-    if [ -f /usr/sbin/service ]
-    then
-        service tomcat7 restart
-    else
-        "Please restart tomcat!"
-    fi
+mv webcomicat-$VERSION.war WEBAPPSDIR/ROOT.war
+service tomcat7 restart
